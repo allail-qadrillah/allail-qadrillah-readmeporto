@@ -25,21 +25,23 @@ export async function generateReadmeMarkdownFile({
 }) {
 	// We use GitHub pages to host our static images since it seems like that's more
 	// reliable compared to using `raw.githubusercontent.com` URLs.
-	const getImagePieceSrc = (
-		{ filepath, imgSrc, theme }: ImagePiece & { theme: 'light' | 'dark' },
-	) =>
-		`https://leonsilicon.github.io/leonsilicon/generator/generated/${
-			imgSrc === undefined ?
-				path.basename(filepath) :
-				imgSrc.replace(
-					'${README_MD_SRC}',
-					path.basename(
-						theme === 'light' ?
-							lightModeReadmeMdImageFilepath :
-							darkModeReadmeMdImageFilepath,
-					),
-				)
-		}`;
+	const getImagePieceSrc = ({
+    filepath,
+    imgSrc,
+    theme,
+  }: ImagePiece & { theme: "light" | "dark" }) =>
+    `https://raw.githubusercontent.com/allail-qadrillah/allail-qadrillah/main/generator/generated/${
+      imgSrc === undefined
+        ? path.basename(filepath)
+        : imgSrc.replace(
+            "${README_MD_SRC}",
+            path.basename(
+              theme === "light"
+                ? lightModeReadmeMdImageFilepath
+                : darkModeReadmeMdImageFilepath
+            )
+          )
+    }`;
 
 	const getImgWidth = (width: number) => `${(width / imageWidth) * 100}%`;
 
